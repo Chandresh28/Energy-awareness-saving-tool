@@ -158,3 +158,23 @@ export function coach(entries: Entry[], today = new Date()): Recommendation[] {
   });
   return recs;
 }
+
+/** Weekly goal: this week (last 7 days) must be ≤ previous 7 days × (1 − target%). */
+export function weeklyGoal(entries: Entry[], targetPct: number, today = new Date()) {
+  const p = comparePeriods(entries, 7, today);
+  const limit = p.previous * (1 - targetPct / 100);
+  return { ...p, limit, achieved: p.previous > 0 && p.current <= limit, progressPct: limit > 0 ? (p.current / limit) * 100 : 0 };
+}
+
+/** Consecutive days (ending today/yesterday) where usage was at or below the daily limit. */
+export function streak(entries: Entry[], dailyLimit: number, today = new Date()) {
+  const byDate = new Map(entries.map((e) => [e.date, e.kwh]));
+  let n = 0;
+  let d = byDate.has(toISO(today)) ? today : addDays(today, -1);
+  while (true) {
+    const v = byDate.get(toISO(d));
+    if (v === undefined || v > dailyLimit) break;
+    n++; d = addDays(d, -1);
+  }
+  return n;
+}
