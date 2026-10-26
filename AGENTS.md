@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- All energy formulas (cost, carbon, savings, aggregation, goals) live in src/lib/energy.ts; app state persists to localStorage via src/lib/store.ts — keeps numbers consistent across pages with no backend.
