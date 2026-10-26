@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as CoachRouteImport } from './routes/coach'
+import { Route as GoalsRouteImport } from './routes/goals'
+import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as TrackerRouteImport } from './routes/tracker'
 
@@ -30,6 +32,16 @@ const CoachRoute = CoachRouteImport.update({
   path: '/coach',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GoalsRoute = GoalsRouteImport.update({
+  id: '/goals',
+  path: '/goals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InsightsRoute = InsightsRouteImport.update({
+  id: '/insights',
+  path: '/insights',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SimulatorRoute = SimulatorRouteImport.update({
   id: '/simulator',
   path: '/simulator',
@@ -45,6 +57,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/coach': typeof CoachRoute
+  '/goals': typeof GoalsRoute
+  '/insights': typeof InsightsRoute
   '/simulator': typeof SimulatorRoute
   '/tracker': typeof TrackerRoute
 }
@@ -52,6 +66,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/coach': typeof CoachRoute
+  '/goals': typeof GoalsRoute
+  '/insights': typeof InsightsRoute
   '/simulator': typeof SimulatorRoute
   '/tracker': typeof TrackerRoute
 }
@@ -60,21 +76,47 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
   '/coach': typeof CoachRoute
+  '/goals': typeof GoalsRoute
+  '/insights': typeof InsightsRoute
   '/simulator': typeof SimulatorRoute
   '/tracker': typeof TrackerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calculator' | '/coach' | '/simulator' | '/tracker'
+  fullPaths:
+    | '/'
+    | '/calculator'
+    | '/coach'
+    | '/goals'
+    | '/insights'
+    | '/simulator'
+    | '/tracker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calculator' | '/coach' | '/simulator' | '/tracker'
-  id: '__root__' | '/' | '/calculator' | '/coach' | '/simulator' | '/tracker'
+  to:
+    | '/'
+    | '/calculator'
+    | '/coach'
+    | '/goals'
+    | '/insights'
+    | '/simulator'
+    | '/tracker'
+  id:
+    | '__root__'
+    | '/'
+    | '/calculator'
+    | '/coach'
+    | '/goals'
+    | '/insights'
+    | '/simulator'
+    | '/tracker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalculatorRoute: typeof CalculatorRoute
   CoachRoute: typeof CoachRoute
+  GoalsRoute: typeof GoalsRoute
+  InsightsRoute: typeof InsightsRoute
   SimulatorRoute: typeof SimulatorRoute
   TrackerRoute: typeof TrackerRoute
 }
@@ -102,6 +144,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/goals': {
+      id: '/goals'
+      path: '/goals'
+      fullPath: '/goals'
+      preLoaderRoute: typeof GoalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/insights': {
+      id: '/insights'
+      path: '/insights'
+      fullPath: '/insights'
+      preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/simulator': {
       id: '/simulator'
       path: '/simulator'
@@ -123,6 +179,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalculatorRoute: CalculatorRoute,
   CoachRoute: CoachRoute,
+  GoalsRoute: GoalsRoute,
+  InsightsRoute: InsightsRoute,
   SimulatorRoute: SimulatorRoute,
   TrackerRoute: TrackerRoute,
 }
