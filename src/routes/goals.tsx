@@ -53,7 +53,7 @@ function Goals() {
           <Progress value={Math.min(100, g.progressPct)} className="mt-2 h-3" />
           <div className="mt-6 rounded-xl bg-muted p-4">
             <div className="flex items-center justify-between text-sm"><span>Adjust weekly reduction target</span><b className="text-lime">{target}%</b></div>
-            <Slider className="mt-3" value={[target]} min={1} max={30} step={1} onValueChange={([v]) => setTarget(v)} aria-label="Weekly target" />
+            <Slider className="mt-3" value={[target]} min={1} max={30} step={1} onValueChange={([v]) => setTarget(v ?? 1)} aria-label="Weekly target" />
             <div className="mt-3 flex items-center justify-between gap-2">
               <p className="text-xs text-muted-foreground">Tip: 5–15% is challenging but achievable.</p>
               <Button size="sm" disabled={target === s.weeklyTargetPct} onClick={() => { setState((x) => ({ ...x, weeklyTargetPct: target })); toast.success(`Weekly target set to ${target}%`); }}>Save target</Button>

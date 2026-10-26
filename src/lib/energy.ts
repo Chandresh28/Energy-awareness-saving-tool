@@ -1,5 +1,5 @@
 // Pure calculation helpers — the single source of truth for every formula in the app.
-export type Entry = { id: string; date: string; kwh: number; note?: string };
+export type Entry = { id: string; date: string; kwh: number; note?: string | undefined };
 export type Settings = { tariff: number; emissionFactor: number; householdName: string };
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -25,7 +25,7 @@ export const toISO = (d: Date) => {
   return `${y}-${m}-${day}`;
 };
 export const parseISO = (s: string) => {
-  const [y, m, d] = s.split("-").map(Number);
+  const [y = 1970, m = 1, d = 1] = s.split("-").map(Number);
   return new Date(y, m - 1, d);
 };
 export const addDays = (d: Date, n: number) => {

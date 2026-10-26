@@ -26,9 +26,9 @@ function Calc() {
   const t = Number(tariff), f = Number(factor), k = Number(kwh);
   const valid = t > 0 && t <= 50 && f > 0 && f <= 2;
 
-  function save() {
-    if (!(t > 0 && t <= 50)) return toast.error("Tariff must be between ₹0 and ₹50 per kWh.");
-    if (!(f > 0 && f <= 2)) return toast.error("Emission factor must be between 0 and 2 kg CO₂/kWh.");
+  function save(): void {
+    if (!(t > 0 && t <= 50)) { toast.error("Tariff must be between ₹0 and ₹50 per kWh."); return; }
+    if (!(f > 0 && f <= 2)) { toast.error("Emission factor must be between 0 and 2 kg CO₂/kWh."); return; }
     setState((s) => ({ ...s, settings: { tariff: t, emissionFactor: f, householdName: name.trim() || "My Home" } }));
     toast.success("Assumptions saved", { description: "All pages now use the new values." });
   }

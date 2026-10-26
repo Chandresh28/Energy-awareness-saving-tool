@@ -30,7 +30,7 @@ function Sim() {
       <PageHeader eyebrow="Savings simulator" title="What if you cut back?" desc="Baseline is your last 30 days. Projections assume the same usage pattern reduced by your target." />
       <Panel>
         <div className="flex items-end justify-between"><p className="text-sm text-muted-foreground">Reduction target</p><p className="font-display text-4xl text-lime">{pct}%</p></div>
-        <Slider className="mt-4" value={[pct]} min={0} max={50} step={1} onValueChange={([v]) => setPct(v)} aria-label="Reduction target" />
+        <Slider className="mt-4" value={[pct]} min={0} max={50} step={1} onValueChange={([v]) => setPct(v ?? 0)} aria-label="Reduction target" />
         <div className="mt-2 flex justify-between text-xs text-muted-foreground"><span>0%</span><span>25%</span><span>50%</span></div>
       </Panel>
       <div className="mt-4 grid gap-4 sm:grid-cols-3">

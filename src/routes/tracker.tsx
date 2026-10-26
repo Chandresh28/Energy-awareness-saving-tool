@@ -52,20 +52,20 @@ function Tracker() {
 
   function reset() { setEditing(null); setKwh(""); setNote(""); setDate(toISO(new Date())); setMode("day"); }
 
-  function submit(e: React.FormEvent) {
+  function submit(e: React.FormEvent): void {
     e.preventDefault();
     const v = Number(kwh);
-    if (!kwh || !Number.isFinite(v) || v <= 0) return toast.error("Enter a consumption above 0 kWh.");
-    if (mode === "day" && v > 200) return toast.error("That's over 200 kWh in a day — please double-check the reading.");
-    if (!date) return toast.error("Pick a date.");
-    if (date > toISO(new Date())) return toast.error("Readings can't be in the future.");
+    if (!kwh || !Number.isFinite(v) || v <= 0) { toast.error("Enter a consumption above 0 kWh."); return; }
+    if (mode === "day" && v > 200) { toast.error("That's over 200 kWh in a day — please double-check the reading."); return; }
+    if (!date) { toast.error("Pick a date."); return; }
+    if (date > toISO(new Date())) { toast.error("Readings can't be in the future."); return; }
 
     if (editing) {
       setState((s) => ({ ...s, entries: s.entries.map((x) => (x.id === editing ? { ...x, date, kwh: v, note: note || undefined, id: x.id.startsWith("s-") ? `u-${crypto.randomUUID()}` : x.id } : x)) }));
       toast.success("Entry updated");
     } else if (mode === "month") {
       // Spread a monthly total evenly across the days of that month.
-      const [y, m] = date.split("-").map(Number);
+      const [y = 2026, m = 1] = date.split("-").map(Number);
       const n = new Date(y, m, 0).getDate();
       const per = Math.round((v / n) * 100) / 100;
       const prefix = `${y}-${String(m).padStart(2, "0")}`;
